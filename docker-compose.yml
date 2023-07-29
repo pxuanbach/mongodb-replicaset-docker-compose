@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  mongo1:
+    container_name: mongo1
+    image: mongo:4.4
+    volumes:
+      - ./mongors/data1:/data/db
+    ports:
+      - 2727:27017
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongo2:
+    container_name: mongo2
+    image: mongo:4.4
+    volumes:
+      - ./mongors/data2:/data/db
+    ports:
+      - 2728:27017
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+  mongo3:
+    container_name: mongo3
+    image: mongo:4.4
+    volumes:
+      - ./mongors/data3:/data/db
+      - ./rs-init.sh:/docker-entrypoint-initdb.d/rs-init.sh:ro
+    ports:
+      - 2729:27017
+    restart: always
+    depends_on:
+      - mongo1
+      - mongo2
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+
+networks:
+  mongors-network:
+    external: true

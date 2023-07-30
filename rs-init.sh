@@ -7,17 +7,17 @@ var config = {
     "members": [
         {
             "_id": 1,
-            "host": "host.docker.internal:2727",
+            "host": "localhost.mongors.com:27021",
             "priority": 3
         },
         {
             "_id": 2,
-            "host": "host.docker.internal:2728",
+            "host": "localhost.mongors.com:27022",
             "priority": 2
         },
         {
             "_id": 3,
-            "host": "host.docker.internal:2729",
+            "host": "localhost.mongors.com:27023",
             "priority": 1
         }
     ]
